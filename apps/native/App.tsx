@@ -5,7 +5,7 @@
  * @format
  */
 
-import React from 'react';
+import React, {useEffect} from 'react';
 import type {PropsWithChildren} from 'react';
 import {
   SafeAreaView,
@@ -16,76 +16,47 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
-
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-import {Button} from '@repo/ui';
+import {Button, Otp, AuthScreen, MobileInput} from '@repo/ui';
+import {ShizuProvider} from '@repo/sdk';
+import {ShizuSdk} from './sdk';
+import LoginScreen from './src/screens/auth/Login.Screen';
+import {storage} from './src/utils/storage';
+import Navigation from './src/navigation/Navigation';
 
 type SectionProps = PropsWithChildren<{
   title: string;
 }>;
 
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
-
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+    backgroundColor: isDarkMode,
   };
 
+  useEffect(() => {}, []);
+
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Button
-            onClick={() => {
-              console.log('Pressed!');
-            }}
-            text="Boop"
-          />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <ShizuProvider storage={storage}>
+      <SafeAreaView
+        style={{
+          backgroundColor: '#1b1b1b',
+          // backgroundColor: 'black',I
+          flex: 1,
+        }}>
+        <StatusBar
+          barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+          backgroundColor="#1b1b1b"
+        />
+        {/* <ScrollView> */}
+        {/* <Otp /> */}
+        {/* <AuthScreen /> */}
+        {/* <MobileInput /> */}
+        {/* <LoginScreen /> */}
+        {/* </ScrollView> */}
+        <Navigation />
+      </SafeAreaView>
+    </ShizuProvider>
   );
 }
 
