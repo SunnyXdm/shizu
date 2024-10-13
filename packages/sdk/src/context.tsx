@@ -26,6 +26,10 @@ const initialState = {
 	newChat: async (userId: string): Promise<any> => {},
 	getChats: async (): Promise<any> => {},
 	getChat: async (chatId: string): Promise<any> => {},
+	sendMessage: async (
+		chatId: string,
+		message: { type: string; text: string }
+	): Promise<any> => {},
 };
 
 // Create Context
@@ -58,6 +62,7 @@ export const ShizuProvider = ({
 
 	const [state, dispatch] = useReducer(reducer, initialState);
 	const shizu = useRef<ShizuSdk>(new ShizuSdk());
+	const ws = useRef<any>(null);
 
 	const init = async () => {
 		const user = await storage.get('user');
@@ -70,6 +75,20 @@ export const ShizuProvider = ({
 			type: 'SET_USER',
 			payload: user,
 		});
+		ws.current = new WebSocket(
+			`ws://shizu-ws.sunnydx.dev/?userId=${user.id}`
+		);
+		ws.current.onmessage = (event: MessageEvent) => {
+			console.log('WebSocket message', event.data);
+		};
+
+		ws.current.onopen = () => {
+			console.log('WebSocket connection opened');
+		};
+
+		ws.current.onclose = () => {
+			console.log('WebSocket connection closed');
+		};
 	};
 	useEffect(() => {
 		init();
@@ -191,6 +210,7 @@ export const ShizuProvider = ({
 		}
 	}
 
+
 	async function getChats() {
 		try {
 			const {
@@ -221,6 +241,26 @@ export const ShizuProvider = ({
 		}
 	}
 
+	async function sendMessage(
+		chatId: string,
+		message: { type: string; text: string }
+	) {
+		try {
+			const {
+				data: { chat },
+			} = await shizu.current.sendMessage(chatId, message);
+			console.log('Shizu SDK sendMessage', JSON.stringify(chat, null, 2));
+			return chat;
+		} catch (error: any) {
+			console.error(
+				'Shizu SDK sendMessage error',
+				JSON.stringify(error?.request, null, 2)
+			);
+
+			return null;
+		}
+	}
+
 	return (
 		<ShizuContext.Provider
 			value={{
@@ -233,6 +273,7 @@ export const ShizuProvider = ({
 				newChat,
 				getChats,
 				getChat,
+				sendMessage,
 			}}
 		>
 			{children}
