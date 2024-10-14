@@ -1,22 +1,23 @@
 {
-  "private": true,
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
-  "scripts": {
-    "dev": "turbo run dev",
-    "build": "turbo run build",
-    "clean": "turbo run clean && rm -rf node_modules",
-    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\" --ignore-path .gitignore"
-  },
-  "devDependencies": {
-    "prettier": "^3.1.1",
-    "turbo": "^2.1.2"
-  },
-  "packageManager": "yarn@3.6.4",
-  "engines": {
-    "node": ">=18"
-  },
-  "name": "with-react-native-web"
+	"private": true,
+	"workspaces": [
+		"apps/*",
+		"packages/*"
+	],
+	"scripts": {
+		"prepare:rn": "echo copying @react-native and react-native modules to bypass hoisting && cp -rf ./node_modules/@react-native ./apps/native/node_modules && cp -rf ./node_modules/react-native ./apps/native/node_modules",
+		"dev": "yarn prepare:rn && turbo run dev",
+		"build": "turbo run build",
+		"clean": "turbo run clean && rm -rf node_modules",
+		"format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\" --ignore-path .gitignore"
+	},
+	"devDependencies": {
+		"prettier": "^3.1.1",
+		"turbo": "^2.1.2"
+	},
+	"packageManager": "yarn@3.6.4",
+	"engines": {
+		"node": ">=18"
+	},
+	"name": "with-react-native-web"
 }
