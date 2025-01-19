@@ -1,5 +1,9 @@
 import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import {
+  createStackNavigator,
+  TransitionPresets,
+  TransitionSpecs,
+} from '@react-navigation/stack';
 import {useShizu} from '@repo/sdk';
 import PhoneScreen from '../screens/auth/PhoneScreen';
 import VerifyScreen from '../screens/auth/VerifyScreen';
@@ -30,6 +34,23 @@ const AppStackNavigator = () => {
     <AppStack.Navigator
       screenOptions={{
         headerShown: false,
+        gestureEnabled: true,
+        animationEnabled: true,
+        gestureResponseDistance: 700,
+        gestureVelocityImpact: 0.3,
+        
+        // gestureDirection: 'horizontal',
+        ...TransitionPresets.SlideFromRightIOS,
+        // transitionSpec: {
+        //   open: {
+        //     animation: 'timing',
+        //     config: {duration: 300},
+        //   },
+        //   close: {
+        //     animation: 'timing',
+        //     config: {duration: 300},
+        //   },
+        // },
       }}
       initialRouteName="home">
       <AppStack.Screen name="home" component={HomeScreen} />

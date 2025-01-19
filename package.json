@@ -5,7 +5,7 @@
 		"packages/*"
 	],
 	"scripts": {
-		"prepare:rn": "echo copying @react-native and react-native modules to bypass hoisting && cp -rf ./node_modules/@react-native ./apps/native/node_modules && cp -rf ./node_modules/react-native ./apps/native/node_modules",
+		"prepare:rn": "echo copying @react-native and react-native modules to bypass hoisting && cp -rf ./node_modules/@react-native ./apps/native/node_modules && cp -rf ./node_modules/react-native ./apps/native/node_modules && cp -rf ./node_modules/react-native-reanimated ./apps/native/node_modules",
 		"dev": "yarn prepare:rn && turbo run dev",
 		"build": "turbo run build",
 		"clean": "turbo run clean && rm -rf node_modules",

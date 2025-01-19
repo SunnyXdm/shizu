@@ -148,7 +148,6 @@ console.log(getRandomChat('Walter'));
 console.log(getRandomChat('Jesse'));
 
 const ChatListItem = (props: any) => {
-  console.log('props', JSON.stringify(props, null, 2));
   const chat = characters[props.index];
   const [pressed, setPressed] = React.useState(false);
   const openChat = () => {

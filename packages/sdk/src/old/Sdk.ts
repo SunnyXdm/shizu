@@ -95,4 +95,10 @@ export class ShizuSdk {
 		console.log('Shizu SDK getChat');
 		return data;
 	}
+
+	async sendMessage(chatId: string, message: { type: string; text: string }) {
+		const { data } = await axios.post(`/message/${chatId}`, message);
+		console.log('Shizu SDK sendMessage');
+		return data;
+	}
 }

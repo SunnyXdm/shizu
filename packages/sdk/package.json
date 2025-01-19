@@ -1,5 +1,5 @@
 {
-	"name": "@repo/sdk",
+	"name": "@shizu/sdk",
 	"version": "0.0.0",
 	"main": "./src/index.tsx",
 	"types": "./dist/index.d.ts",
@@ -9,13 +9,14 @@
 		"clean": "rm -rf dist"
 	},
 	"devDependencies": {
-		"@repo/typescript-config": "*",
+		"@shizu/typescript-config": "*",
 		"@types/react": "^18.2.46",
 		"axios": "^1.7.7",
 		"tsup": "^8.0.1",
 		"typescript": "^5.3.3"
 	},
 	"dependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0",
+		"react-native-mmkv": "^3.0.2"
 	}
 }
